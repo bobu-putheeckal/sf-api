@@ -5,7 +5,7 @@ on:
 
 name: Build and Deploy to Cloud Run
 env:
-  PROJECT_ID: ${{ secrets.GCP_CREDENTIALS.project_id }}
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   SERVICE: k8s
   REGION: us-east1
 
