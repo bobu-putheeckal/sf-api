@@ -16,11 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   # docker:
   #   needs: sonarcloud
@@ -56,4 +56,3 @@ jobs:
   #         docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
   #         docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest .
   #         docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest
-        

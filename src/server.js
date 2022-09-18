@@ -35,7 +35,7 @@ const serverStart = async () => {
       .db("userdb")
       .collection("users")
       .find()
-      .project({firstName:1,email:1})
+      .project({ firstName: 1, email: 1 })
       .toArray();
     res.json(response);
   });
@@ -46,7 +46,11 @@ const serverStart = async () => {
     const response = await mongoClient
       .db("userdb")
       .collection("users")
-      .insertOne({firstName:user.firstName,lastName:user.lastName,email:user.email});
+      .insertOne({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      });
     return res.json(response);
   });
 
@@ -56,4 +60,4 @@ const serverStart = async () => {
 };
 
 serverStart();
-module.exports = app
+module.exports = app;
