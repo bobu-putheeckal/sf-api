@@ -17,7 +17,6 @@ const serverStart = async () => {
   const MONGO_URL = process.env.MONGO_URL;
   const MONGO_PORT = process.env.MONGO_PORT;
 
-  // const uri = "mongodb://root:example@mongo:27017/";
   const uri = `mongodb://${MONGO_USER}:${MONGO_PWD}@${MONGO_URL}:${MONGO_PORT}/`;
   console.log(`uri => ${uri}`);
   // Create a new MongoClient
@@ -39,10 +38,6 @@ const serverStart = async () => {
       .project({firstName:1,email:1})
       .toArray();
     res.json(response);
-    // const response = await axios.get(
-    //   "https://jsonplaceholder.typicode.com/users"
-    // );
-    // res.json(response.data);
   });
 
   app.post("/user", async (req, res) => {
