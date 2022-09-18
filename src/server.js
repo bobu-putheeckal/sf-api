@@ -9,11 +9,11 @@ const PORT = process.env.PORT;
 
 // App
 const app = express();
-app.use(
-  cors({
-    origin: "http://34.171.103.192/",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://34.171.103.192/",
+//   })
+// );
 app.use(bodyParser.json());
 app.use(helmet.hidePoweredBy);
 
