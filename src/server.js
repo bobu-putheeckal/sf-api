@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(
   cors({
-    origin: "*",
+    origin: "http://34.171.103.192/",
   })
 );
 app.use(bodyParser.json());
