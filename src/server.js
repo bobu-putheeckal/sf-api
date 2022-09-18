@@ -40,15 +40,15 @@ const serverStart = async () => {
     res.json(response);
   });
 
-  app.post("/user", async (req, res) => {
-    const user = req.body;
-    console.dir(user);
-    const response = await mongoClient
-      .db("userdb")
-      .collection("users")
-      .insertOne(user);
-    return res.json(response);
-  });
+  // app.post("/user", async (req, res) => {
+  //   const user = req.body;
+  //   console.dir(user);
+  //   const response = await mongoClient
+  //     .db("userdb")
+  //     .collection("users")
+  //     .insertOne(user);
+  //   return res.json(response);
+  // });
 
   app.listen(PORT, () => {
     console.log(`listening on port :${PORT}`);
