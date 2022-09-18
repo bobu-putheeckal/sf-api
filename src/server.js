@@ -46,7 +46,7 @@ const serverStart = async () => {
     const response = await mongoClient
       .db("userdb")
       .collection("users")
-      .insertOne(user);
+      .insertOne({firstName:user.firstName,lastName:user.lastName,email:user.email});
     return res.json(response);
   });
 
