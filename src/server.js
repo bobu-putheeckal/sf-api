@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const { MongoClient } = require("mongodb");
 
@@ -8,8 +9,13 @@ const PORT = process.env.PORT;
 
 // App
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(bodyParser.json());
+app.use(helmet.hidePoweredBy);
 
 const serverStart = async () => {
   const MONGO_USER = process.env.MONGO_USER;
