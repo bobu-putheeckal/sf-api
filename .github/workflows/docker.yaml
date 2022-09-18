@@ -11,7 +11,7 @@ env:
 
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: SonarCloud - Static Code analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,6 +23,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   docker:
+    needs: sonarcloud
+    name: Docker Build and Push
     runs-on: ubuntu-latest
 
     # Add "id-token" with the intended permissions.
