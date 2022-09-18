@@ -37,9 +37,7 @@ jobs:
         run: gcloud auth configure-docker
 
       - name: Build and Push Container
-        # run: |-
-        #   docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
-        #   docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
         run: |-
-          docker build -t gcr.io/learn-k8s-360513/k8s:${{  github.sha }} .
-          docker push gcr.io/learn-k8s-360513/k8s:${{  github.sha }}
+          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+        
