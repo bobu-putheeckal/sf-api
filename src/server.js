@@ -15,7 +15,7 @@ const app = express();
 //   })
 // );
 app.use(bodyParser.json());
-app.use(helmet.hidePoweredBy);
+app.use(helmet.hidePoweredBy());
 
 const serverStart = async () => {
   const MONGO_USER = process.env.MONGO_USER;
@@ -53,9 +53,9 @@ const serverStart = async () => {
       .db("userdb")
       .collection("users")
       .insertOne({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
+        firstName: user.firstName.toString(),
+        lastName: user.lastName.toString(),
+        email: user.email.toString(),
       });
     return res.json(response);
   });
