@@ -9,11 +9,6 @@ const PORT = process.env.PORT;
 
 // App
 const app = express();
-// app.use(
-//   cors({
-//     origin: "http://34.171.103.192/",
-//   })
-// );
 app.use(bodyParser.json());
 app.use(helmet.hidePoweredBy());
 
@@ -41,7 +36,7 @@ const serverStart = async () => {
       .db("userdb")
       .collection("users")
       .find()
-      .project({ firstName: 1, email: 1 })
+      .project({ firstName: 1, email: 1 ,lastName:1})
       .toArray();
     res.json(response);
   });
