@@ -3,11 +3,7 @@ on:
     branches:
       - main
 
-name: Build and Deploy to Cloud Run
-env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  SERVICE: sf-demo-repo
-  REGION: us-east1
+name: Code Qualitty, Docker Build and Push to Docker Hub
 
 jobs:
   sonarcloud:
@@ -23,7 +19,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   docker:
-    # needs: sonarcloud
+    needs: sonarcloud
     name: Docker Build and Push
     runs-on: ubuntu-latest
 
@@ -31,15 +27,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: Docker Hub Login
         env:
-          DOCKER_USER : ${{secrets.DOCKER_USER}}
-          DOCKER_PASSWORD : ${{secrets.DOCKER_PASSWORD}}
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Docker Build
-        run : |-
+        run: |-
           docker build -t bobput/sf-demo-api:latest .
           docker build -t bobput/sf-demo-api:${{ github.sha }} .
       - name: Docker Push
-        run : |-
+        run: |-
           docker push bobput/sf-demo-api:latest
           docker push bobput/sf-demo-api:${{ github.sha }}
