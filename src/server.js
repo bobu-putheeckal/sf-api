@@ -36,7 +36,7 @@ const serverStart = async () => {
       .db("userdb")
       .collection("users")
       .find()
-      .project({ firstName: 1 })
+      .project({ firstName: 1, lastName: 1, email: 1 })
       .toArray();
     res.json(response);
   });
