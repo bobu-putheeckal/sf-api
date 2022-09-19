@@ -28,7 +28,7 @@ const serverStart = async () => {
   console.log("Connected successfully to server");
 
   app.get("/", (_, res) => {
-    res.send(`up!!!`);
+    res.status(200).send({ status: "ok" });
   });
 
   app.get("/users", async function (_, res) {
@@ -36,14 +36,14 @@ const serverStart = async () => {
       .db("userdb")
       .collection("users")
       .find()
-      .project({ firstName: 1, email: 1 ,lastName:1, _id:0})
+      .project({ firstName: 1, email: 1 })
       .toArray();
     res.json(response);
   });
 
   app.post("/user", async (req, res) => {
     const user = req.body;
-    console.dir(user);
+    // console.dir(user);
     const response = await mongoClient
       .db("userdb")
       .collection("users")
@@ -52,7 +52,7 @@ const serverStart = async () => {
         lastName: user.lastName.toString(),
         email: user.email.toString(),
       });
-    return res.json(response);
+    return res.status(201).json(response);
   });
 
   app.listen(PORT, () => {
