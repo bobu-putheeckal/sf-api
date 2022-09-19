@@ -27,32 +27,20 @@ jobs:
     name: Docker Build and Push
     runs-on: ubuntu-latest
 
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: "read"
-      id-token: "write"
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # Configure Workload Identity Federation and generate an access token.
-      # Alternative option - authentication via credentials json
-      - id: "auth"
-        uses: "google-github-actions/auth@v0"
-        with:
-          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
-
-      # Setup gcloud CLI
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0
-
-      - name: Authorize Docker push
-        run: gcloud auth configure-docker
-
-      - name: Build and Push Container
-        run: |-
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/api:${{  github.sha }} .
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/api:${{  github.sha }}
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/api:latest .
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/api:latest
+      - uses: actions/checkout@v2
+      - name: Docker Hub Login
+        env:
+          DOCKER_USER : ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD : ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u DOCKER_USER -p DOCKER_PASSWORD
+          github.sha
+      - name: Docker Build
+        run : |-
+          docker build -t bobput/sf-demo-api:latest .
+          docker build -t bobput/sf-demo-api:${{ github.sha }} .
+      - name: Docker Push
+        run : |-
+          docker push bobput/sf-demo-api:latest
+          docker push bobput/sf-demo-api:${{ github.sha }}
