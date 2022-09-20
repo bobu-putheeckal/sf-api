@@ -10,6 +10,7 @@ jobs:
     name: SonarCloud - Static Code analysis
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Unit Testing
         run: docker-compose -f docker-compose-test.yml up --build --abort-on-container-exit
 
@@ -42,39 +43,3 @@ jobs:
         run: |-
           docker push bobput/sf-demo-api:latest
           docker push bobput/sf-demo-api:${{ github.sha }}
-  QA:
-    runs-on: ubuntu-latest
-    environment: QA
-    needs: docker
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a script
-        run: |
-          echo "Job in QA"
-  SIT:
-    runs-on: ubuntu-latest
-    environment: QA
-    needs: QA
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a script
-        run: |
-          echo "Job in SIT"
-  UAT:
-    runs-on: ubuntu-latest
-    environment: QA
-    needs: SIT
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a script
-        run: |
-          echo "Job in UAT"
-  PRE-PROD:
-    runs-on: ubuntu-latest
-    environment: QA
-    needs: UAT
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a script
-        run: |
-          echo "Job in PRE-PROD"
