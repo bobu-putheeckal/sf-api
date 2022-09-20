@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Unit Testing
-        run: docker-compose -f docker-compose-test.yml up --build --abort-on-container-exit
+        run: docker-compose -f docker-compose-test.yml up --build
 
       - uses: actions/checkout@v2
         with:
