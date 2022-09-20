@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Unit Testing
-        uses: actions/checkout@v2
         run: docker-compose -f docker-compose-test.yml up --build --abort-on-container-exit
 
       - uses: actions/checkout@v2
