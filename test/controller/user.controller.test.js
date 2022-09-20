@@ -20,12 +20,12 @@ describe("testing", () => {
       lastName: "Puth",
       email: "bobu.puth@gmail.com",
     });
-    // console.dir(response);
+    expect(response).to.have.property("acknowledged", true);
+    // console.dir(response.acknowledged);
   });
 
   it("get User", async () => {
     const response = await getUsers();
     expect(response).to.have.lengthOf(1);
-    console.dir(response);
   });
 });
